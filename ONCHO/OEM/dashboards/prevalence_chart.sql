@@ -1,0 +1,2 @@
+--Use the same script you used for the prevalence script and
+-- change the visualisation type to histogram on Metabase.
