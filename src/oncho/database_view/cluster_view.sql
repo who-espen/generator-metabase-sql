@@ -2,13 +2,14 @@
  * File: cluster_view.sql
  * File Created: Wednesday, 22nd April 2020 2:51:35 pm
  * Author: Dyesse YUMBA
- * Last Modified: Wednesday, 22nd April 2020 6:09:49 pm
+ * Last Modified: Thursday, 23rd April 2020 11:53:39 am
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UHC/ESPEN
  */
 
-CREATE VIEW v_oem_oemclusterv5_2_mozambique_pt
+
+CREATE VIEW v_<%= countryIso2 %>_<%= disease %>_<%= survey %>_1_cluster
 AS
 SELECT c.id,
     c.c_recorder_id,
@@ -25,4 +26,4 @@ SELECT c.id,
     c.c_black_fly,
     c.c_cluster_notes,
     c.c_end_time AS c_date
-FROM oem_oemclusterv5_2_mozambique_pt c;
+FROM <%= countryIso2 %>_<%= disease %>_<%= survey %>_1_cluster c;

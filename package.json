@@ -1,6 +1,6 @@
 {
   "name": "generator-metabase-sql",
-  "version": "0.1.0alpha-1",
+  "version": "0.1.0alpha-5",
   "description": "Set of SQL for metabase dashboard and pulses withe ESPEN Collect",
   "repository": "https://github.com/who-espen/generator-metabase-sql.git",
   "author": "Dyesse YUMBA <yumba.nduba@gmail.com>",
@@ -8,13 +8,9 @@
   "private": true,
   "keywords": [
     "ESPEN Collect",
-    "ESPEN",
-    "yeoman-generator"
-  ],
-  "files": [
-    "oncho"
+    "ESPEN"
   ],
   "dependencies": {
-    "yeoman-generator": "^4.8.3"
+    "prettier": "^2.0.5"
   }
 }
