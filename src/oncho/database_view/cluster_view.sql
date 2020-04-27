@@ -8,8 +8,11 @@
  * (c) 2020, WHO/AFRO/UHC/ESPEN
  */
 
+/*
+ * Variable to rename  <%v_ab_cde_fgh_1_cluster%>, <%ab_cde_fgh_1_cluster%>
+ */
 
-CREATE VIEW v_<%= countryIso2 %>_<%= disease %>_<%= survey %>_1_cluster
+CREATE VIEW <%v_ab_cde_fgh_1_cluster%>
 AS
 SELECT c.id,
     c.c_recorder_id,
@@ -26,4 +29,4 @@ SELECT c.id,
     c.c_black_fly,
     c.c_cluster_notes,
     c.c_end_time AS c_date
-FROM <%= countryIso2 %>_<%= disease %>_<%= survey %>_1_cluster c;
+FROM <%ab_cde_fgh_1_cluster%> c;

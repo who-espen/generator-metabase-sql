@@ -3,7 +3,7 @@ This repository contains the SQL script we use for supporting activities with `E
 
 ## Naming convention of the form
 Here is how we will name the ESPEN Collect Electronic Form for DSA
-`<Country IS0 Code 2>_<Disease abbreviation>_<Survey Abbreviation>_<Form Index>_<Form Designation>`. Exemple: `bf_lf_tas2_1_sites`, `bf_lf_tas2_2_participant`
+`<Country IS0 Code 2>_<Disease abbreviation>_<Survey Abbreviation>_<Form Index>_<Form Designation>_<year and month>`. Exemple: `bf_lf_tas2_1_sites_202004`, `bf_lf_tas2_2_participant_202004`
 
 ### Definition
 - **Country IS0 Code 2**: International country ISO code with two caractère ([https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2))

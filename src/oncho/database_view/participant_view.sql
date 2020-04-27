@@ -1,4 +1,18 @@
-CREATE VIEW public.v_oem_oemparticipantv5_mozambique_pt
+/*
+ * File: participant_view.sql
+ * File Created: Thursday, 23rd April 2020 2:11:14 pm
+ * Author: Dyesse YUMBA
+ * Last Modified: Thursday, 23rd April 2020 3:05:53 pm
+ * Modified By: Dyesse YUMBA
+ * -----
+ * (c) 2020, WHO/AFRO/UHC/ESPEN
+ */
+
+  /*
+ * Variable to rename  <%v_ab_cde_fgh_3_dbs%>, <%ab_cde_fgh_3_dbs d%>
+ */
+
+CREATE VIEW <%v_ab_cde_fgh_2_participant%>
 AS SELECT p.id,
     p.p_recorder_id,
     p.p_district_id,
@@ -15,6 +29,5 @@ AS SELECT p.id,
     p.p_barcode_id,
     p.p_generate_id,
     p.p_additional_notes,
-    p.p_end_time
-   FROM oem_oemparticipantv5_mozambique_pt p
-     LEFT JOIN clusters c2 ON p.p_cluster_id = c2.cluster_id::text;
+    p.p_end_time AS p_date
+   FROM <%ab_cde_fgh_2_participant%> p
