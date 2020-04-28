@@ -9,15 +9,15 @@
  */
 
   /*
- * Variable to rename  <%v_ab_cde_fgh_3_dbs%>, <%ab_cde_fgh_3_dbs d%>
+ * Variable to rename  <%ab_cde_fgh_2_participant%>, <%ab_cde_fgh_1_cluster%>, <%v_ab_cde_fgh_2_participant%>
  */
 
 CREATE VIEW <%v_ab_cde_fgh_2_participant%>
 AS SELECT p.id,
     p.p_recorder_id,
-    p.p_district_id,
+    p.p_district,
     p.p_cluster_id,
-      --  c2.cluster_name AS p_cluster_name,
+    c.c_cluster_name AS p_cluster_name,
     p.p_consent,
     p.p_age_yrs,
     p.p_how_long_lived,
@@ -31,3 +31,4 @@ AS SELECT p.id,
     p.p_additional_notes,
     p.p_end_time AS p_date
    FROM <%ab_cde_fgh_2_participant%> p
+   LEFT JOIN <%ab_cde_fgh_1_cluster%> c ON c.c_cluster_id = p.p_cluster_id::TEXT

@@ -14,8 +14,8 @@
 
 CREATE VIEW <%v_ab_cde_fgh_3_dbs%>
 AS SELECT p.id,
-    d_District_ID,
-    d_District_ID,
+    d_district,
+    d_district,
     d_Dbs_Id,
     d_End_Time AS d_date
    FROM <%ab_cde_fgh_3_dbs%> d
