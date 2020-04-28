@@ -1,12 +1,13 @@
 /*
- * File: 01_duplicates_initial_scripts.sql
+ * File: 0_duplicates_initial_scripts.sql
  * File Created: Friday, 24th April 2020 11:00:14 am
  * Author: Dyesse YUMBA
- * Last Modified: Monday, 27th April 2020 5:56:15 pm
+ * Last Modified: Tuesday, 28th April 2020 3:13:19 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UHC/ESPEN
  */
+
 
 /*
  * Variable to rename <%matabase_oncho_oem_duplicates_202004%>, <%v_ab_cde_fgh_3_participant%>, <%v_ab_cde_fgh_3_dbs%>
