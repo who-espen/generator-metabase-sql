@@ -1,4 +1,14 @@
 /*
+ * File: orphaned.sql
+ * File Created: Tuesday, 28th April 2020 5:00:43 pm
+ * Author: Dyesse YUMBA
+ * Last Modified: Thursday, 30th April 2020 2:39:22 pm
+ * Modified By: Dyesse YUMBA
+ * -----
+ * (c) 2020, WHO/AFRO/UCN/ESPEN
+ */
+
+/*
  * Variable to rename <%matabase_oncho_oem_orphaned_202004%>, <%v_ab_cde_fgh_3_participant%>
  */
 BEGIN;
@@ -89,7 +99,7 @@ BEGIN
       END IF;
 
 -- Insert the new participant without diagnostic results to the orphaned table
-      INSERT INTO public.<%matabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, barcode_participant, orphaned_type)
+      INSERT INTO <%matabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, barcode_participant, orphaned_type)
         SELECT id, p_recorder_id, p_barcode_id, 'Participant without OV16 results'
           FROM (
             SELECT
@@ -115,7 +125,7 @@ BEGIN;
 /**
  * Insert the new diagnostic results without participant to the orphaned table
  */
-INSERT INTO public.<%matabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, barcode_results, orphaned_type)
+INSERT INTO <%matabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, barcode_results, orphaned_type)
   SELECT id, d_recorder_id, d_barcode_id, 'Participant without OV16 results'
     FROM (
       SELECT
