@@ -57,7 +57,7 @@ SELECT
   null "Year lived in the village",
   null "Sex",
   null "OV 16 result",
-  d.d_LabOV16 date,
+  d.d_lab_ov16 date,
   status "Status"
 
 FROM <%matabase_oncho_oem_duplicates_202004%> AS m, <%v_ab_cde_fgh_3_rdt_ov16%> AS d
