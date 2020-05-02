@@ -15,7 +15,7 @@
  SELECT
 	concat(count(id), '/', <%number_villlage%>)
 FROM <%ab_cde_fgh_1_cluster%>
-WHERE id ID NOT NULL
+WHERE id IS NOT NULL
 
   ------ Metabase filter -------
   -- [[and {{c_cluster_id}}]]
