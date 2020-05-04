@@ -21,6 +21,7 @@ Here is how we will name the ESPEN Collect Electronic Form for DSA
     - *smdas*: STOP MDA Survey
     - *oss*: Onchocerciasis Surveillance survey
     - *ois*:  Onchocerciasis Impact Assessment
+    - *bsa*: Breeding Sites Assessment
   
   - **Lymphatic Filariasis**
     - *tas*: Transmission Assessment Survey
