@@ -2,16 +2,16 @@
  * File: site_view.sql
  * File Created: Monday, 4th May 2020 3:24:32 pm
  * Author: Dyesse YUMBA
- * Last Modified: Monday, 4th May 2020 3:29:23 pm
+ * Last Modified: Monday, 4th May 2020 3:47:58 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
 /*
- * Variable to rename  <%v_ab_cde_fgh_1_cluster%>, <%ab_cde_fgh_1_cluster%>
+ * Variable to rename  <%v_ab_cde_fgh_1_site%>, <%ab_cde_fgh_1_site%>
  */
-CREATE view <%v_ab_cde_fgh_1_cluster%>
+CREATE view <%v_ab_cde_fgh_1_site%>
 AS
 SELECT
   id,
@@ -33,4 +33,4 @@ SELECT
   c_gps_acc,
   c_cluster_notes,
   c_end c_date
-FROM <%ab_cde_fgh_1_cluster%>
+FROM <%ab_cde_fgh_1_site%> c

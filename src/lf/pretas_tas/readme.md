@@ -6,5 +6,5 @@
 
 
 ## Variable to replace
-- <%v_ab_cde_fgh_1_cluster%>
-- <%ab_cde_fgh_1_cluster%>
+- <%v_ab_cde_fgh_1_site%>
+- <%ab_cde_fgh_1_site%>
