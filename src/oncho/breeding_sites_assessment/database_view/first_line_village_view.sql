@@ -18,4 +18,4 @@ v_total_population,
 v_notes,
 v_end v_date
 
-FROM <%bf_lf_bsa_2_village%>
+FROM <%bf_lf_bsa_2_village%> v

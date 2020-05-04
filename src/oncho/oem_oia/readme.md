@@ -20,8 +20,3 @@
 - <%village_dist_required%>
 - <%matabase_oncho_oem_action_todo_202004%>
 - <%surver_detail%>
-- <%v_bf_lf_bsa_2_community_quest%>
-- <%bf_lf_bsa_2_community_quest%>
-- <%v_bf_lf_bsa_2_river_insp%>
-- <%bf_lf_bsa_2_river_insp%>
-- <%bf_lf_bsa_2_village%>

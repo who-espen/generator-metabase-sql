@@ -29,4 +29,4 @@ SELECT
   q_blackfly_season,
   q_notes,
   q_end q_date
-FROM <%v_bf_lf_bsa_2_community_quest%>
+FROM <%bf_lf_bsa_2_community_quest%> q
