@@ -8,3 +8,5 @@
 ## Variable to replace
 - <%v_ab_cde_fgh_1_site%>
 - <%ab_cde_fgh_1_site%>
+- <%v_ab_cde_fgh_3_fts%>
+- <%ab_cde_fgh_3_fts%>
