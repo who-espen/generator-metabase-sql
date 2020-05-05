@@ -111,7 +111,7 @@ CREATE OR REPLACE FUNCTION identify_diag_result_duplicate() RETURNS TRIGGER AS $
             AND (SELECT count (*)  FROM <%ab_cde_fgh_3_dbs%> inr WHERE src.d_barcode_id = inr.d_barcode_id ) > 1
             ) THEN
 
-        INSERT INTO <%metabase_oncho_oem_duplicates_202004%>(id_participant, barcode_results, form)
+        INSERT INTO <%metabase_oncho_oem_duplicates_202004%>(id_results, barcode_results, form)
           SELECT id, d_barcode_id, 'Diagnostic'
             FROM (SELECT src.id, d_barcode_id FROM <%ab_cde_fgh_3_dbs%> src
               WHERE d_barcode_id = NEW.d_barcode_id) p
@@ -129,7 +129,7 @@ FOR EACH ROW EXECUTE PROCEDURE identify_diag_result_duplicate();
 /**
 * Query to identifie the existing records with duplicates issues
 */
- INSERT INTO <%metabase_oncho_oem_duplicates_202004%>(id_participant, barcode_results, form)
+ INSERT INTO <%metabase_oncho_oem_duplicates_202004%>(id_results, barcode_results, form)
  SELECT id, d_barcode_id, 'Diagnostic'
             FROM (
               SELECT src.id, src.d_barcode_id FROM <ab_cde_fgh_3_dbs%> src

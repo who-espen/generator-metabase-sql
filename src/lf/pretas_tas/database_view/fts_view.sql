@@ -2,14 +2,15 @@
  * File: fts_view.sql
  * File Created: Monday, 4th May 2020 4:21:23 pm
  * Author: Dyesse YUMBA
- * Last Modified: Monday, 4th May 2020 8:29:51 pm
+ * Last Modified: Tuesday, 5th May 2020 4:26:23 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
+
 /*
- * Variable to rename  <%v_ab_cde_fgh_3_fts%>, <%ab_cde_fgh_3_fts%>
+ * Variable to rename  <%v_ab_cde_fgh_3_fts%>, <%ab_cde_fgh_3_fts%>, <%ab_cde_fgh_1_site%>
  */
  CREATE view <%v_ab_cde_fgh_3_fts%>
 AS
@@ -18,6 +19,7 @@ SELECT
   d_recorder_id,
   d_eu_code,
   d_cluster_id,
+  c.c_cluster_name d_cluster_name,
 
   CASE WHEN d_id_type = 'Scanner' THEN d_barcode_id ELSE d_generate_id END AS d_barcode_id,
 
@@ -34,6 +36,7 @@ SELECT
 
   d_display_result2,
   d_final_result,
-  d_end
+  d_end d_date
 
 FROM <%ab_cde_fgh_3_fts%> d
+   left join <%ab_cde_fgh_1_site%> c on d.d_cluster_id::int = c.c_cluster_id1
