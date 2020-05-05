@@ -17,3 +17,5 @@
 - <%identify_diag_result_duplicate%>,
 - <%metabase_lf_tas_result_duplicates_202004_trigger%>
 - <%metabase_lf_tas_duplicates_202005_trigger%>
+- <%metabase_lf_tas_orphaned_202005%>
+- <%metabase_lf_oem_action_todo_202004%>

@@ -1,13 +1,13 @@
 /*
- * File: 7_inacurrate_gps.sql
- * File Created: Friday, 1st May 2020 10:47:45 pm
+ * File: 7_innacurrate_gps.sql
+ * File Created: Tuesday, 5th May 2020 6:36:35 pm
  * Author: Dyesse YUMBA
- * Last Modified: Friday, 1st May 2020 10:53:23 pm
+ * Last Modified: Tuesday, 5th May 2020 6:37:59 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
-
+!
 
 /*
  * This card will list all records with innacurate GPS
@@ -20,7 +20,7 @@
 	c_gps_lat,
 	c_gps_lng,
  	c_gps_acc
-FROM <%ab_cde_fgh_1_cluster%>
+FROM <%ab_cde_fgh_1_site%>
 WHERE c_gps_acc > 20
 
   ------ Metabase filter -------
