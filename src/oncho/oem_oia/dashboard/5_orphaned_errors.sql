@@ -1,16 +1,17 @@
 /*
  * File: 5_orphaned_errors.sql
- * File Created: Thursday, 30th April 2020 2:44:12 pm
+ * File Created: Saturday, 2nd May 2020 4:42:43 pm
  * Author: Dyesse YUMBA
- * Last Modified: Friday, 1st May 2020 10:42:05 pm
+ * Last Modified: Tuesday, 5th May 2020 1:17:54 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
+
 /*
  * A query for listing all records that use the same ID twice
- * Variable to rename <%v_ab_cde_fgh_3_participant%>, <%v_ab_cde_fgh_3_rdt_ov16%>, <%matabase_oncho_oem_orphaned_202004%>
+ * Variable to rename <%v_ab_cde_fgh_3_participant%>, <%v_ab_cde_fgh_3_rdt_ov16%>, <%metabase_oncho_oem_orphaned_202004%>
  */
 
     SELECT
@@ -27,7 +28,7 @@
 
     FROM <%v_ab_cde_fgh_3_participant%> p
       LEFT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
-      LEFT JOIN <%matabase_oncho_oem_orphaned_202004%> m on m.id_participant = p.id
+      LEFT JOIN <%metabase_oncho_oem_orphaned_202004%> m on m.id_participant = p.id
       WHERE d.id isNULL
 
   ------ Metabase filter -------
@@ -52,7 +53,7 @@
 
     FROM <%v_ab_cde_fgh_3_rdt_ov16%> d
       LEFT JOIN <%v_ab_cde_fgh_3_participant%> p on p.p_barcode_id = d.d_barcode_id
-      LEFT JOIN <%matabase_oncho_oem_orphaned_202004%> m on m.id_results = d.id
+      LEFT JOIN <%metabase_oncho_oem_orphaned_202004%> m on m.id_results = d.id
       WHERE p.id isNULL
 
   ------ Metabase filter -------

@@ -1,18 +1,17 @@
 /*
  * File: duplicates.sql
- * File Created: Friday, 24th April 2020 11:00:14 am
+ * File Created: Saturday, 2nd May 2020 4:42:43 pm
  * Author: Dyesse YUMBA
- * Last Modified: Tuesday, 28th April 2020 5:02:03 pm
+ * Last Modified: Tuesday, 5th May 2020 1:18:52 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
-
-
 /*
- * Variable to rename <%matabase_oncho_oem_duplicates_202004%>, <%ab_cde_fgh_3_participant%>, <%ab_cde_fgh_3_dbs%>,
- * <%v_ab_cde_fgh_3_participant%>, <%v_ab_cde_fgh_3_dbs%>
+ * Variable to rename <%metabase_oncho_oem_duplicates_202004%>, <%ab_cde_fgh_3_participant%>, <%ab_cde_fgh_3_dbs%>,
+ * <%v_ab_cde_fgh_3_participant%>, <%v_ab_cde_fgh_3_dbs%>, <%metabase_oncho_oem_duplicates_202004_trigger%>,
+ * <%identify_participant_duplicate%>
  */
 
 BEGIN;
@@ -20,7 +19,7 @@ BEGIN;
 /**
 * The table to track duplicates issues
 */
-CREATE TABLE IF NOT EXISTS <%matabase_oncho_oem_duplicates_202004%>(
+CREATE TABLE IF NOT EXISTS <%metabase_oncho_oem_duplicates_202004%>(
   id SERIAL PRIMARY KEY,
   id_participant INTEGER NULL, -- The id from participant table
   barcode_participant VARCHAR(255) NULL, -- The barcode from participant table
@@ -36,15 +35,15 @@ CREATE TABLE IF NOT EXISTS <%matabase_oncho_oem_duplicates_202004%>(
 * Adding unique index in the duplicates tables
 */
   CREATE UNIQUE INDEX IF NOT EXISTS idx_duplicates_participant_id_barcode
-    ON <%matabase_oncho_oem_duplicates_202004%>(id_participant, barcode_participant);
+    ON <%metabase_oncho_oem_duplicates_202004%>(id_participant, barcode_participant);
   CREATE UNIQUE INDEX IF NOT EXISTS idx_duplicates_results_id_barcode
-    ON <%matabase_oncho_oem_duplicates_202004%>(id_results, barcode_results);
+    ON <%metabase_oncho_oem_duplicates_202004%>(id_results, barcode_results);
 
-  ALTER TABLE <%matabase_oncho_oem_duplicates_202004%>
+  ALTER TABLE <%metabase_oncho_oem_duplicates_202004%>
     ADD CONSTRAINT unique_idx_duplicates_participant_id_barcode
     UNIQUE USING INDEX idx_duplicates_participant_id_barcode;
 
-  ALTER TABLE <%matabase_oncho_oem_duplicates_202004%>
+  ALTER TABLE <%metabase_oncho_oem_duplicates_202004%>
     ADD CONSTRAINT unique_idx_duplicates_results_id_barcode
     UNIQUE USING INDEX idx_duplicates_results_id_barcode;
 
@@ -55,18 +54,18 @@ CREATE TABLE IF NOT EXISTS <%matabase_oncho_oem_duplicates_202004%>(
 * and will insert it to the duplicate table created above.
 * Returns: trigger
 */
-CREATE OR REPLACE FUNCTION identify_participant_duplicate() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION <%identify_participant_duplicate%>() RETURNS TRIGGER AS $$
    BEGIN
 
       IF EXISTS(
-        SELECT src.id, src.p_barcode_id FROM <%v_ab_cde_fgh_3_participant%> src
+        SELECT src.id, src.p_barcode_id FROM <%ab_cde_fgh_3_participant%> src
           WHERE src.p_barcode_id = NEW.p_barcode_id
-            AND (SELECT count (*)  FROM <%v_ab_cde_fgh_3_participant%> inr WHERE src.p_barcode_id = inr.p_barcode_id ) > 1
+            AND (SELECT count (*)  FROM <%ab_cde_fgh_3_participant%> inr WHERE src.p_barcode_id = inr.p_barcode_id ) > 1
             ) THEN
 
-        INSERT INTO <%matabase_oncho_oem_duplicates_202004%>(id_participant, barcode_participant, form)
+        INSERT INTO <%metabase_oncho_oem_duplicates_202004%>(id_participant, barcode_participant, form)
           SELECT id, p_barcode_id, 'Participant'
-            FROM (SELECT src.id, src.p_barcode_id FROM <%v_ab_cde_fgh_3_participant%> src
+            FROM (SELECT src.id, src.p_barcode_id FROM <%ab_cde_fgh_3_participant%> src
               WHERE src.p_barcode_id = NEW.p_barcode_id) p
           ON CONFLICT ON CONSTRAINT unique_idx_duplicates_participant_id_barcode DO NOTHING;
 
@@ -75,18 +74,18 @@ CREATE OR REPLACE FUNCTION identify_participant_duplicate() RETURNS TRIGGER AS $
    END;
 $$ LANGUAGE PLPGSQL;
 
-CREATE TRIGGER matabase_oncho_oem_duplicates_202004_trigger AFTER INSERT OR UPDATE OR DELETE ON <%ab_cde_fgh_3_participant%>
-FOR EACH ROW EXECUTE PROCEDURE identify_participant_duplicate();
+CREATE TRIGGER <%metabase_oncho_oem_duplicates_202004_trigger%> AFTER INSERT OR UPDATE OR DELETE ON <%ab_cde_fgh_3_participant%>
+FOR EACH ROW EXECUTE PROCEDURE <%identify_participant_duplicate%>();
 
 
 /**
 * Query to identifie the existing records with duplicates issues
 */
- INSERT INTO <%matabase_oncho_oem_duplicates_202004%>(id_participant, barcode_participant, form)
+ INSERT INTO <%metabase_oncho_oem_duplicates_202004%>(id_participant, barcode_participant, form)
  SELECT id, p_barcode_id, 'Participant'
             FROM (
-              SELECT src.id, src.p_barcode_id FROM <%v_ab_cde_fgh_3_participant%> src
-                WHERE (SELECT count (*)  FROM <%v_ab_cde_fgh_3_participant%> inr WHERE src.p_barcode_id = inr.p_barcode_id ) > 1
+              SELECT src.id, src.p_barcode_id FROM <%ab_cde_fgh_3_participant%> src
+                WHERE (SELECT count (*)  FROM <%ab_cde_fgh_3_participant%> inr WHERE src.p_barcode_id = inr.p_barcode_id ) > 1
             ) p
 
 ON CONFLICT ON CONSTRAINT unique_idx_duplicates_participant_id_barcode DO NOTHING;
@@ -107,14 +106,14 @@ CREATE OR REPLACE FUNCTION identify_diag_result_duplicate() RETURNS TRIGGER AS $
    BEGIN
 
       IF EXISTS(
-        SELECT src.id, d_barcode_id FROM <%v_ab_cde_fgh_3_dbs%> src
-          WHERE d_barcode_id = NEW.d_barcode_id
-            AND (SELECT count (*)  FROM <%v_ab_cde_fgh_3_dbs%> inr WHERE barcode_results = inr.d_barcode_id ) > 1
+        SELECT src.id, d_barcode_id FROM <%ab_cde_fgh_3_dbs%> src
+          WHERE src.d_barcode_id = NEW.d_barcode_id
+            AND (SELECT count (*)  FROM <%ab_cde_fgh_3_dbs%> inr WHERE src.d_barcode_id = inr.d_barcode_id ) > 1
             ) THEN
 
-        INSERT INTO <%matabase_oncho_oem_duplicates_202004%>(id_participant, barcode_results, form)
+        INSERT INTO <%metabase_oncho_oem_duplicates_202004%>(id_participant, barcode_results, form)
           SELECT id, d_barcode_id, 'Diagnostic'
-            FROM (SELECT src.id, d_barcode_id FROM <%v_ab_cde_fgh_3_dbs%> src
+            FROM (SELECT src.id, d_barcode_id FROM <%ab_cde_fgh_3_dbs%> src
               WHERE d_barcode_id = NEW.d_barcode_id) p
           ON CONFLICT ON CONSTRAINT unique_idx_duplicates_results_id_barcode DO NOTHING;
 
@@ -123,15 +122,18 @@ CREATE OR REPLACE FUNCTION identify_diag_result_duplicate() RETURNS TRIGGER AS $
    END;
 $$ LANGUAGE PLPGSQL;
 
+CREATE TRIGGER <%metabase_oncho_oem_result_duplicates_202004_trigger%> AFTER INSERT OR UPDATE OR DELETE ON <%ab_cde_fgh_3_dbs%>
+FOR EACH ROW EXECUTE PROCEDURE identify_diag_result_duplicate();
+
 
 /**
 * Query to identifie the existing records with duplicates issues
 */
- INSERT INTO <%matabase_oncho_oem_duplicates_202004%>(id_participant, barcode_results, form)
+ INSERT INTO <%metabase_oncho_oem_duplicates_202004%>(id_participant, barcode_results, form)
  SELECT id, d_barcode_id, 'Diagnostic'
             FROM (
-              SELECT src.id, src.d_barcode_id FROM <%v_ab_cde_fgh_3_dbs%> src
-                WHERE (SELECT count (*)  FROM <%v_ab_cde_fgh_3_dbs%> inr WHERE src.d_barcode_id = inr.d_barcode_id ) > 1
+              SELECT src.id, src.d_barcode_id FROM <ab_cde_fgh_3_dbs%> src
+                WHERE (SELECT count (*)  FROM <%ab_cde_fgh_3_dbs%> inr WHERE src.d_barcode_id = inr.d_barcode_id ) > 1
             ) p
 
 ON CONFLICT ON CONSTRAINT unique_idx_duplicates_results_id_barcode DO NOTHING;

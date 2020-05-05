@@ -1,12 +1,13 @@
 /*
  * File: 2_duplicates_errors.sql
- * File Created: Tuesday, 28th April 2020 3:15:06 pm
+ * File Created: Saturday, 2nd May 2020 4:42:43 pm
  * Author: Dyesse YUMBA
- * Last Modified: Tuesday, 28th April 2020 4:40:24 pm
+ * Last Modified: Tuesday, 5th May 2020 1:17:26 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
+
 
 /*
  * A query for listing all records that use the same ID twice
@@ -41,7 +42,7 @@ FROM (
   p.p_date date,
   status "Status"
 
-FROM <%matabase_oncho_oem_duplicates_202004%> AS m, <%v_ab_cde_fgh_3_participant%> AS p
+FROM <%metabase_oncho_oem_duplicates_202004%> AS m, <%v_ab_cde_fgh_3_participant%> AS p
   WHERE p.id = m.id_participant
 
 UNION ALL
@@ -60,7 +61,7 @@ SELECT
   d.d_lab_ov16 date,
   status "Status"
 
-FROM <%matabase_oncho_oem_duplicates_202004%> AS m, <%v_ab_cde_fgh_3_rdt_ov16%> AS d
+FROM <%metabase_oncho_oem_duplicates_202004%> AS m, <%v_ab_cde_fgh_3_rdt_ov16%> AS d
   WHERE p.id = m.id_participant
 ) src
 

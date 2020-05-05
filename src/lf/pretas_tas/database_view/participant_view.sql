@@ -2,7 +2,7 @@
  * File: participant_view.sql
  * File Created: Monday, 4th May 2020 3:30:18 pm
  * Author: Dyesse YUMBA
- * Last Modified: Monday, 4th May 2020 3:54:35 pm
+ * Last Modified: Tuesday, 5th May 2020 1:16:57 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
@@ -29,4 +29,4 @@ SELECT
   p_notes,
   p_end p_date
 
-FROM <%v_ab_cde_fgh_2_participant%> p
+FROM <%ab_cde_fgh_2_participant%> p
