@@ -15,5 +15,5 @@
 - <%metabase_lf_tas_duplicates_202005%>
 - <%identify_participant_duplicate%>
 - <%identify_diag_result_duplicate%>,
-- <%metabase_oncho_oem_result_duplicates_202004_trigger%>
+- <%metabase_lf_tas_result_duplicates_202004_trigger%>
 - <%metabase_lf_tas_duplicates_202005_trigger%>

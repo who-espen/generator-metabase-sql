@@ -2,7 +2,7 @@
  * File: 2_duplicates_errors.sql
  * File Created: Tuesday, 5th May 2020 3:57:42 pm
  * Author: Dyesse YUMBA
- * Last Modified: Tuesday, 5th May 2020 4:53:46 pm
+ * Last Modified: Tuesday, 5th May 2020 5:06:34 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
@@ -10,7 +10,7 @@
 
 /*
  * A query for listing all records that use the same ID twice
- * Variable to rename <%v_ab_cde_fgh_3_participant%>
+ * Variable to rename <%metabase_lf_tas_duplicates_202005%>, <%v_ab_cde_fgh_2_participant%>, <%v_ab_cde_fgh_3_fts%>
  */
 SELECT
   "Form",

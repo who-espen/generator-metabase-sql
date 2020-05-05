@@ -10,7 +10,7 @@
 
 /*
  * Variable to rename <%metabase_lf_tas_duplicates_202005%>, <%identify_participant_duplicate%>, <%ab_cde_fgh_2_participant%>,
- * <%ab_cde_fgh_3_fts%>, <%metabase_oncho_oem_result_duplicates_202004_trigger%>, <%metabase_lf_tas_duplicates_202005_trigger%>
+ * <%ab_cde_fgh_3_fts%>, <%metabase_lf_tas_result_duplicates_202004_trigger%>, <%metabase_lf_tas_duplicates_202005_trigger%>
  */
 
 BEGIN;
@@ -124,7 +124,7 @@ CREATE OR REPLACE FUNCTION <%identify_diag_result_duplicate%>() RETURNS TRIGGER 
    END;
 $$ LANGUAGE PLPGSQL;
 
-CREATE TRIGGER <%metabase_oncho_oem_result_duplicates_202004_trigger%> AFTER INSERT OR UPDATE OR DELETE ON local_bf_tas_lf_resultat_fts_v3
+CREATE TRIGGER <%metabase_lf_tas_result_duplicates_202004_trigger%> AFTER INSERT OR UPDATE OR DELETE ON local_bf_tas_lf_resultat_fts_v3
 FOR EACH ROW EXECUTE PROCEDURE <%identify_diag_result_duplicate%>();
 
 
