@@ -1,8 +1,8 @@
 /*
- * File: 16_participant_chart.sql
- * File Created: Saturday, 2nd May 2020 3:43:01 pm
+ * File: 15_participant_chart.sql
+ * File Created: Wednesday, 6th May 2020 11:01:22 am
  * Author: Dyesse YUMBA
- * Last Modified: Saturday, 2nd May 2020 3:48:22 pm
+ * Last Modified: Wednesday, 6th May 2020 11:06:00 am
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
@@ -10,7 +10,7 @@
 
 /*
  * This query will return the participant per sex
- * Variable to rename <%v_ab_cde_fgh_3_participant%>
+ * Variable to rename <%v_ab_cde_fgh_2_participant%>
  */
  select
 
@@ -26,7 +26,7 @@ FROM (
   	COUNT(case when p_sex = 'Female' then 1 else null end ) female,
   	p_date
 
-  FROM <%v_ab_cde_fgh_3_participant%> P
+  FROM <%v_ab_cde_fgh_2_participant%> P
 
   GROUP BY p_district,  p_cluster_id, p_cluster_name, p_date
 ) src
