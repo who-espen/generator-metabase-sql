@@ -10,7 +10,7 @@
 
 /*
  * This query will will display a pin Map of clusters with positive cases
- * Variable to rename <%ab_cde_fgh_1_cluster%>
+ * Variable to rename <%ab_cde_fgh_1_cluster%>, <%v_ab_cde_fgh_3_rdt_ov16%>
  */
  SELECT
   c_district_id,

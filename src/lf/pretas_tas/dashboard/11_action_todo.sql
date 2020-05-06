@@ -11,7 +11,7 @@
 
 /*
  * This query will provide the list of actions to do for fixing the mistakes on data
- * Variable to rename <%surver_detail%> <%metabase_oncho_oem_action_todo_202004%>
+ * Variable to rename <%surver_detail%>, <%metabase_lf_oem_action_todo_202004%>
  */
 SELECT
  id "SN",
@@ -19,5 +19,5 @@ SELECT
  actor "Actor",
  status "Status",
  due_date "Due Date"
-FROM <%metabase_oncho_oem_action_todo_202004%>
+FROM <%metabase_lf_oem_action_todo_202004%>
 WHERE surver_detail = '<%surver_detail%>'

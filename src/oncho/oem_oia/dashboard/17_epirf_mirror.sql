@@ -28,8 +28,9 @@ SELECT
   'RDT' "Diagnostic for Serology",
   'Convinent' "Sampling Method", -- cluster for 2nd line village
   CONCAT(min(p_age_yrs), ' - ', max(p_age_yrs)) "Age group(Min - Max)",
+  COUNT(p.id) "Examined",
   COUNT(case when d_lab_ov16 = 'Positive' then 1 else NULL end) "Number of Positive",
-  ROUNT(COUNT(case when d_lab_ov16 = 'Positive' then 1 else NULL end) * 100.0 / count(*), 2) "% positive"
+  ROUND(COUNT(case when d_lab_ov16 = 'Positive' then 1 else NULL end) * 100.0 / count(*), 2) "% positive"
 
 FROM <%v_ab_cde_fgh_3_participant%> p
 LEFt JOIN <%v_ab_cde_fgh_1_cluster%> c on c.c_cluster_id1 = p.p_cluster_id::int

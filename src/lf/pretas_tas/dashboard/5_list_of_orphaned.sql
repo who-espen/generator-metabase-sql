@@ -1,17 +1,16 @@
 /*
- * File: 5_orphaned_errors.sql
- * File Created: Saturday, 2nd May 2020 4:42:43 pm
+ * File: 5_list_of_orphaned.sql
+ * File Created: Tuesday, 5th May 2020 6:29:42 pm
  * Author: Dyesse YUMBA
- * Last Modified: Tuesday, 5th May 2020 1:17:54 pm
+ * Last Modified: Tuesday, 5th May 2020 6:33:56 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
-
 /*
  * A query for listing all records that use the same ID twice
- * Variable to rename <%v_ab_cde_fgh_3_participant%>, <%v_ab_cde_fgh_3_rdt_ov16%>, <%metabase_oncho_oem_orphaned_202004%>
+ * Variable to rename <%v_ab_cde_fgh_2_participant%>, <%v_ab_cde_fgh_3_fts%>, <%metabase_lf_tas_orphaned_202005%>
  */
 
     SELECT
@@ -26,9 +25,9 @@
       p_date "Date",
       status "Status"
 
-    FROM <%v_ab_cde_fgh_3_participant%> p
-      LEFT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
-      LEFT JOIN <%metabase_oncho_oem_orphaned_202004%> m on m.id_participant = p.id
+    FROM <%v_ab_cde_fgh_2_participant%> p
+      LEFT JOIN <%v_ab_cde_fgh_3_fts%> d on p.p_barcode_id = d.d_barcode_id
+      LEFT JOIN <%metabase_lf_tas_orphaned_202005%> m on m.id_participant = p.id
       WHERE d.id isNULL
 
   ------ Metabase filter -------
@@ -46,14 +45,14 @@
       d_recorder_id::int "Recorder ID",
       NULL "Age In Years",
       NULL "Sex",
-      d_lab_ov16 "Diagnostic Results",
-      'OV16 results' "Missing Record",
+      d_final_result "Diagnostic Results",
+      'FTS results' "Missing Record",
       d_date "Date",
       status "Status"
 
-    FROM <%v_ab_cde_fgh_3_rdt_ov16%> d
-      LEFT JOIN <%v_ab_cde_fgh_3_participant%> p on p.p_barcode_id = d.d_barcode_id
-      LEFT JOIN <%metabase_oncho_oem_orphaned_202004%> m on m.id_results = d.id
+    FROM <%v_ab_cde_fgh_3_fts%> d
+      LEFT JOIN <%v_ab_cde_fgh_2_participant%> p on p.p_barcode_id = d.d_barcode_id
+      LEFT JOIN <%metabase_lf_tas_orphaned_202005%> m on m.id_results = d.id
       WHERE p.id isNULL
 
   ------ Metabase filter -------

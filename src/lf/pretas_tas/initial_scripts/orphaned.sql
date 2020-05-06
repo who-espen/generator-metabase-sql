@@ -1,23 +1,14 @@
 /*
- * File: orphaned.sql
- * File Created: Saturday, 2nd May 2020 4:42:43 pm
- * Author: Dyesse YUMBA
- * Last Modified: Tuesday, 5th May 2020 5:20:45 pm
- * Modified By: Dyesse YUMBA
- * -----
- * (c) 2020, WHO/AFRO/UCN/ESPEN
- */
-
-
-/*
- * Variable to rename <%metabase_oncho_oem_orphaned_202004%>, <%v_ab_cde_fgh_3_participant%>
+ * Variable to rename <%metabase_lf_tas_orphaned_202005%>, <%v_ab_cde_fgh_3_participant%>,
+ * <%v_ab_cde_fgh_3_rdt_ov16%>
  */
 BEGIN;
 
-/**
+
+ /**
 * The table to track orphaned issues
 */
-CREATE TABLE IF NOT EXISTS <%metabase_oncho_oem_orphaned_202004%>(
+CREATE TABLE IF NOT EXISTS <%metabase_lf_tas_orphaned_202005%>(
   id SERIAL PRIMARY KEY,
   recorder_id INTEGER NOT NULL,
   id_participant INTEGER NULL, -- The id from participant table
@@ -32,29 +23,30 @@ CREATE TABLE IF NOT EXISTS <%metabase_oncho_oem_orphaned_202004%>(
 * Adding unique index in the orphaned tables
 */
   CREATE UNIQUE INDEX IF NOT EXISTS idx_orphaned_participant_id_barcode
-    ON <%metabase_oncho_oem_orphaned_202004%>(id_participant, barcode_participant);
+    ON <%metabase_lf_tas_orphaned_202005%>(id_participant, barcode_participant);
   CREATE UNIQUE INDEX IF NOT EXISTS idx_orphaned_results_id_barcode
-    ON <%metabase_oncho_oem_orphaned_202004%>(id_results, barcode_results);
+    ON <%metabase_lf_tas_orphaned_202005%>(id_results, barcode_results);
 
-  ALTER TABLE <%metabase_oncho_oem_orphaned_202004%>
+  ALTER TABLE <%metabase_lf_tas_orphaned_202005%>
     ADD CONSTRAINT unique_idx_orphaned_participant_id_barcode
     UNIQUE USING INDEX idx_orphaned_participant_id_barcode;
 
-  ALTER TABLE <%metabase_oncho_oem_orphaned_202004%>
+  ALTER TABLE <%metabase_lf_tas_orphaned_202005%>
     ADD CONSTRAINT unique_idx_orphaned_results_id_barcode
     UNIQUE USING INDEX idx_orphaned_results_id_barcode;
+
 
 
 /**
  * Insert the new participant without diagnostic results to the orphaned table
  */
-INSERT INTO <%metabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, barcode_participant, orphaned_type)
-  SELECT id, p_recorder_id, p_barcode_id, 'Participant without OV16 results'
+INSERT INTO <%metabase_lf_tas_orphaned_202005%>(id_participant, recorder_id, barcode_participant, orphaned_type)
+  SELECT id, p_recorder_id, p_barcode_id, 'Participant without FTS results'
     FROM (
       SELECT
         p.id, p_recorder_id, p_barcode_id
-        FROM <%v_ab_cde_fgh_3_participant%> p
-         LEFT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
+        FROM <%v_ab_cde_fgh_2_participant%> p
+         LEFT JOIN <%v_ab_cde_fgh_3_fts%> d on p.p_barcode_id = d.d_barcode_id
           WHERE d.id isnull
           ) p
 ON CONFLICT ON CONSTRAINT unique_idx_orphaned_participant_id_barcode DO NOTHING;
@@ -64,14 +56,14 @@ ON CONFLICT ON CONSTRAINT unique_idx_orphaned_participant_id_barcode DO NOTHING;
 /**
  * A stored procedure for updating the status of orphaned records from participants side
  */
-CREATE OR REPLACE PROCEDURE update_oncho_orphaned_table_from_participant()
+CREATE OR REPLACE PROCEDURE update_lf_orphaned_table_from_participant()
 LANGUAGE plpgsql
 AS $$
 BEGIN
 
 -- Create a view to get the list of orphaned participants --.
 -- i.e. participant without diagnostic results
-    CREATE OR REPLACE TEMPORARY VIEW v_oncho_orphaned_of_participants AS
+    CREATE OR REPLACE TEMPORARY VIEW v_lf_orphaned_of_participants AS
     SELECT
       p.id,
       p.p_recorder_id,
@@ -82,24 +74,24 @@ BEGIN
 
 -- Check if there is solved orphaned participant then update
       IF EXISTS(
-      SELECT * FROM v_oncho_orphaned_of_participants p
-       RIGHT JOIN public.<%metabase_oncho_oem_orphaned_202004%> m on p.id = m.id_participant
+      SELECT * FROM v_lf_orphaned_of_participants p
+       RIGHT JOIN <%metabase_lf_tas_orphaned_202005%> m on p.id = m.id_participant
        WHERE p.id ISNULL
           ) THEN
 
-          UPDATE <%metabase_oncho_oem_orphaned_202004%>
+          UPDATE <%metabase_lf_tas_orphaned_202005%>
           SET status = 'Solved'
           where id_participant NOT IN (
             SELECT p.id
-            FROM v_oncho_orphaned_of_participants p
-            LEFT JOIN <%metabase_oncho_oem_orphaned_202004%> m ON p.id = m.id_participant
+            FROM v_lf_orphaned_of_participants p
+            LEFT JOIN <%metabase_lf_tas_orphaned_202005%> m ON p.id = m.id_participant
             );
 
       END IF;
 
 -- Insert the new participant without diagnostic results to the orphaned table
-      INSERT INTO <%metabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, barcode_participant, orphaned_type)
-        SELECT id, p_recorder_id, p_barcode_id, 'Participant without OV16 results'
+      INSERT INTO <%metabase_lf_tas_orphaned_202005%>(id_participant, recorder_id, barcode_participant, orphaned_type)
+        SELECT id, p_recorder_id, p_barcode_id, 'Participant without FTS results'
           FROM (
             SELECT
               p.id, p_recorder_id, p_barcode_id
@@ -115,6 +107,7 @@ $$;
 
 COMMIT;
 
+
 /*******************************************************************************************************************************************
  * Use the query bellow only of you have diagnostic table in the database
  *******************************************************************************************************************************************/
@@ -124,7 +117,7 @@ BEGIN;
 /**
  * Insert the new diagnostic results without participant to the orphaned table
  */
-INSERT INTO <%metabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, barcode_results, orphaned_type)
+INSERT INTO <%metabase_lf_tas_orphaned_202005%>(id_participant, recorder_id, barcode_results, orphaned_type)
   SELECT id, d_recorder_id, d_barcode_id, 'OV16 results without participant'
     FROM (
       SELECT
@@ -159,22 +152,22 @@ BEGIN
 -- Check if there is solved orphaned participant then update
       IF EXISTS(
       SELECT * FROM v_orphaned_of_diag_results p
-       RIGHT JOIN public.<%metabase_oncho_oem_orphaned_202004%> m on p.id = m.id_participant
+       RIGHT JOIN public.<%metabase_lf_tas_orphaned_202005%> m on p.id = m.id_participant
        WHERE p.id ISNULL
           ) THEN
 
-          UPDATE <%metabase_oncho_oem_orphaned_202004%>
+          UPDATE <%metabase_lf_tas_orphaned_202005%>
           SET status = 'Solved'
           where id_participant NOT IN (
             SELECT p.id
             FROM v_orphaned_of_diag_results p
-            LEFT JOIN <%metabase_oncho_oem_orphaned_202004%> m ON p.id = m.id_participant
+            LEFT JOIN <%metabase_lf_tas_orphaned_202005%> m ON p.id = m.id_participant
             );
 
       END IF;
 
 -- Insert the new participant without diagnostic results to the orphaned table
-      INSERT INTO public.<%metabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, barcode_participant, orphaned_type)
+      INSERT INTO public.<%metabase_lf_tas_orphaned_202005%>(id_participant, recorder_id, barcode_participant, orphaned_type)
         SELECT id, p_recorder_id, p_barcode_id, 'OV16 results without participant'
           FROM (
             SELECT
@@ -192,3 +185,4 @@ $$;
 END;
 
 COMMIT;
+
