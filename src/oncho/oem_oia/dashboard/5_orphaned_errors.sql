@@ -1,17 +1,18 @@
 /*
  * File: 5_orphaned_errors.sql
- * File Created: Saturday, 2nd May 2020 4:42:43 pm
+ * File Created: Wednesday, 6th May 2020 2:01:44 pm
  * Author: Dyesse YUMBA
- * Last Modified: Tuesday, 5th May 2020 1:17:54 pm
+ * Last Modified: Monday, 11th May 2020 1:09:03 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
 
+
 /*
  * A query for listing all records that use the same ID twice
- * Variable to rename <%v_ab_cde_fgh_3_participant%>, <%v_ab_cde_fgh_3_rdt_ov16%>, <%metabase_oncho_oem_orphaned_202004%>
+ * Variable to rename <%v_ab_cde_fgh_2_participant%>, <%v_ab_cde_fgh_3_rdt_ov16%>, <%metabase_oncho_oem_orphaned_202004%>
  */
 
     SELECT
@@ -26,7 +27,7 @@
       p_date "Date",
       status "Status"
 
-    FROM <%v_ab_cde_fgh_3_participant%> p
+    FROM <%v_ab_cde_fgh_2_participant%> p
       LEFT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
       LEFT JOIN <%metabase_oncho_oem_orphaned_202004%> m on m.id_participant = p.id
       WHERE d.id isNULL
@@ -52,7 +53,7 @@
       status "Status"
 
     FROM <%v_ab_cde_fgh_3_rdt_ov16%> d
-      LEFT JOIN <%v_ab_cde_fgh_3_participant%> p on p.p_barcode_id = d.d_barcode_id
+      LEFT JOIN <%v_ab_cde_fgh_2_participant%> p on p.p_barcode_id = d.d_barcode_id
       LEFT JOIN <%metabase_oncho_oem_orphaned_202004%> m on m.id_results = d.id
       WHERE p.id isNULL
 

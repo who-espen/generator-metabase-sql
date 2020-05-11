@@ -11,8 +11,8 @@
 - <%ab_cde_fgh_1_cluster%>
 - <%v_ab_cde_fgh_3_dbs%>
 - <%ab_cde_fgh_3_dbs%>
-- <%v_ab_cde_fgh_3_participant%>
-- <%ab_cde_fgh_3_participant%>
+- <%v_ab_cde_fgh_2_participant%>
+- <%ab_cde_fgh_2_participant%>
 - <%ab_cde_fgh_3_rdt_ov16%>
 - <%v_ab_cde_fgh_3_rdt_ov16%>
 - <%metabase_oncho_oem_duplicates_202004%>
