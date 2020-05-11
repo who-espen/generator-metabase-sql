@@ -13,8 +13,8 @@
 - <%ab_cde_fgh_2_participant%>
 - <%v_ab_cde_fgh_3_kk%>
 - <%ab_cde_fgh_3_kk%>
-- <%v_ab_cde_fgh_3_urine%>
-- <%ab_cde_fgh_3_urine%>
+- <%v_ab_cde_fgh_4_urine%>
+- <%ab_cde_fgh_4_urine%>
 - <%metabase_sch_sth_tas_duplicates_202005%>
 - <%metabase_sch_sth_tas_duplicates_202005_trigger%>
 - <%metabase_sch_sth_kk_result_duplicates_202004_trigger%>

@@ -24,7 +24,7 @@ GROUP BY p.p_end::DATE
 UNION ALL
 
 SELECT
- COUNT(barcode_participant),
+ COUNT(barcode_results),
  d.p_end::date
 FROM <%metabase_lf_tas_duplicates_202005%> AS m, <%ab_cde_fgh_3_fts%> AS d
 WHERE m.id IS NOT NULL AND m.id_results = d.id

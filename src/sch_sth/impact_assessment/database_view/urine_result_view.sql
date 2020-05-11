@@ -9,9 +9,9 @@
  */
 
 /*
- * Variable to rename  <%v_ab_cde_fgh_3_urine%>, <%ab_cde_fgh_3_urine%>
+ * Variable to rename  <%v_ab_cde_fgh_4_urine%>, <%ab_cde_fgh_4_urine%>
  */
-CREATE view <%v_ab_cde_fgh_3_urine%>
+CREATE view <%v_ab_cde_fgh_4_urine%>
 AS
 SELECT
 
@@ -28,4 +28,4 @@ SELECT
   u_remarks,
   u_end u_date
 
-FROM <%ab_cde_fgh_3_urine%> u
+FROM <%ab_cde_fgh_4_urine%> u
