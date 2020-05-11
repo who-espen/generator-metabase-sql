@@ -2,7 +2,7 @@
 
 - **site table**: c_cluster_id, c_gps_lat, c_gps_lng,
 - **participant table**: p_cluster_id, p_barcode_id, p_generate_id
-- **FTS table**: d_cluster_id, d_barcode_id
+- **FTS table**: d_generate_id, d_barcode_id
 
 ## Variable to replace
 
