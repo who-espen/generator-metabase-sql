@@ -2,15 +2,16 @@
  * File: 2_duplicates_errors.sql
  * File Created: Monday, 11th May 2020 8:13:38 pm
  * Author: Dyesse YUMBA
- * Last Modified: Monday, 11th May 2020 8:25:49 pm
+ * Last Modified: Tuesday, 12th May 2020 9:40:48 am
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
+
 /*
  * A query for listing all records that use the same ID twice
- * Variable to rename <%metabase_sch_sth_tas_duplicates_202005%>, <%v_ab_cde_fgh_2_participant%>, <%v_ab_cde_fgh_3_kk%>,
+ * Variable to rename <%metabase_sch_sth_ias_duplicates_202005%>, <%v_ab_cde_fgh_2_participant%>, <%v_ab_cde_fgh_3_kk%>,
  * <%v_ab_cde_fgh_4_urine%>
  */
 SELECT
@@ -36,7 +37,7 @@ FROM (
   p.p_date date,
   status "Status"
 
-FROM <%metabase_sch_sth_tas_duplicates_202005%> AS m, <%v_ab_cde_fgh_2_participant%> AS p
+FROM <%metabase_sch_sth_ias_duplicates_202005%> AS m, <%v_ab_cde_fgh_2_participant%> AS p
   WHERE p.id = m.id_participant
 
 UNION ALL
@@ -52,7 +53,7 @@ SELECT
   k.k_date date,
   status "Status"
 
-FROM <%metabase_sch_sth_tas_duplicates_202005%> AS m, <%v_ab_cde_fgh_3_kk%> AS k
+FROM <%metabase_sch_sth_ias_duplicates_202005%> AS m, <%v_ab_cde_fgh_3_kk%> AS k
   WHERE k.id = m.id_results_kk
 
 UNION ALL
@@ -68,7 +69,7 @@ SELECT
   u.u_date date,
   status "Status"
 
-FROM <%metabase_sch_sth_tas_duplicates_202005%> AS m, <%v_ab_cde_fgh_4_urine%> AS k
+FROM <%metabase_sch_sth_ias_duplicates_202005%> AS m, <%v_ab_cde_fgh_4_urine%> AS k
   WHERE u.id = m.id_results_urine
 ) src
 

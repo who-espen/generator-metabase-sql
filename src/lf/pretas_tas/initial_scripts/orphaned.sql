@@ -2,11 +2,12 @@
  * File: orphaned.sql
  * File Created: Wednesday, 6th May 2020 2:01:44 pm
  * Author: Dyesse YUMBA
- * Last Modified: Monday, 11th May 2020 1:08:07 pm
+ * Last Modified: Tuesday, 12th May 2020 10:06:41 am
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
+
 
 /*
  * Variable to rename <%metabase_lf_tas_orphaned_202005%>, <%v_ab_cde_fgh_2_participant%>,
@@ -178,7 +179,7 @@ BEGIN
 
 -- Insert the new participant without diagnostic results to the orphaned table
       INSERT INTO public.<%metabase_lf_tas_orphaned_202005%>(id_participant, recorder_id, barcode_participant, orphaned_type)
-        SELECT id, p_recorder_id, p_barcode_id, 'OV16 results without participant'
+        SELECT id, d_recorder_id, d_barcode_id, 'OV16 results without participant'
           FROM (
             SELECT
               d.id, d_recorder_id, d_barcode_id

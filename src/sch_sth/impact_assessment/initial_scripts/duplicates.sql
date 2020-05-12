@@ -2,15 +2,16 @@
  * File: duplicates.sql
  * File Created: Monday, 11th May 2020 1:40:17 pm
  * Author: Dyesse YUMBA
- * Last Modified: Monday, 11th May 2020 4:37:30 pm
+ * Last Modified: Tuesday, 12th May 2020 9:41:18 am
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
+
 /*
- * Variable to rename <%metabase_sch_sth_tas_duplicates_202005%>, <%identify_participant_duplicate%>, <%v_ab_cde_fgh_2_participant%>
- * <%ab_cde_fgh_2_participant%>, <%metabase_sch_sth_tas_duplicates_202005_trigger%>, <%identify_kk_result_duplicate%>,
+ * Variable to rename <%metabase_sch_sth_ias_duplicates_202005%>, <%identify_participant_duplicate%>, <%v_ab_cde_fgh_2_participant%>
+ * <%ab_cde_fgh_2_participant%>, <%metabase_sch_sth_ias_duplicates_202005_trigger%>, <%identify_kk_result_duplicate%>,
  * <%v_ab_cde_fgh_3_kk%>, <%ab_cde_fgh_3_kk%>, <%metabase_sch_sth_kk_result_duplicates_202004_trigger%>, <%identify_urine_result_duplicate%>
  * <%v_ab_cde_fgh_4_urine%>, <%ab_cde_fgh_4_urine%>
  */
@@ -20,7 +21,7 @@
 /**
 * The table to track duplicates issues
 */
-CREATE TABLE IF NOT EXISTS <%metabase_sch_sth_tas_duplicates_202005%>(
+CREATE TABLE IF NOT EXISTS <%metabase_sch_sth_ias_duplicates_202005%>(
   id SERIAL PRIMARY KEY,
   id_participant INTEGER NULL, -- The id from participant table
   barcode_participant VARCHAR(255) NULL, -- The barcode from participant table
@@ -35,21 +36,21 @@ CREATE TABLE IF NOT EXISTS <%metabase_sch_sth_tas_duplicates_202005%>(
 * Adding unique index in the duplicates tables
 */
   CREATE UNIQUE INDEX IF NOT EXISTS idx_duplicates_participant_id_barcode
-    ON <%metabase_sch_sth_tas_duplicates_202005%>(id_participant, barcode_participant);
+    ON <%metabase_sch_sth_ias_duplicates_202005%>(id_participant, barcode_participant);
   CREATE UNIQUE INDEX IF NOT EXISTS idx_duplicates_results_kk_id_barcode
-    ON <%metabase_sch_sth_tas_duplicates_202005%>(id_results_kk, barcode_results);
+    ON <%metabase_sch_sth_ias_duplicates_202005%>(id_results_kk, barcode_results);
   CREATE UNIQUE INDEX IF NOT EXISTS idx_duplicates_results_urine_id_barcode
-    ON <%metabase_sch_sth_tas_duplicates_202005%>(id_results_urine, barcode_results);
+    ON <%metabase_sch_sth_ias_duplicates_202005%>(id_results_urine, barcode_results);
 
-  ALTER TABLE <%metabase_sch_sth_tas_duplicates_202005%>
+  ALTER TABLE <%metabase_sch_sth_ias_duplicates_202005%>
     ADD CONSTRAINT unique_idx_duplicates_participant_id_barcode
     UNIQUE USING INDEX idx_duplicates_participant_id_barcode;
 
-  ALTER TABLE <%metabase_sch_sth_tas_duplicates_202005%>
+  ALTER TABLE <%metabase_sch_sth_ias_duplicates_202005%>
     ADD CONSTRAINT unique_idx_duplicates_results_kk_id_barcode
     UNIQUE USING INDEX idx_duplicates_results_kk_id_barcode;
 
-  ALTER TABLE <%metabase_sch_sth_tas_duplicates_202005%>
+  ALTER TABLE <%metabase_sch_sth_ias_duplicates_202005%>
     ADD CONSTRAINT unique_idx_duplicates_results_urine_id_barcode
     UNIQUE USING INDEX idx_duplicates_results_urine_id_barcode;
 
@@ -69,7 +70,7 @@ CREATE OR REPLACE FUNCTION <%identify_participant_duplicate%>() RETURNS TRIGGER 
             AND (SELECT count (*)  FROM <%v_ab_cde_fgh_2_participant%> inr WHERE src.p_barcode_id = inr.p_barcode_id ) > 1
             ) THEN
 
-        INSERT INTO <%metabase_sch_sth_tas_duplicates_202005%>(id_participant, barcode_participant, form)
+        INSERT INTO <%metabase_sch_sth_ias_duplicates_202005%>(id_participant, barcode_participant, form)
           SELECT id, p_barcode_id, 'Participant'
             FROM (SELECT src.id, src.p_barcode_id FROM <%v_ab_cde_fgh_2_participant%> src
               WHERE src.p_barcode_id = NEW.p_barcode_id) p
@@ -80,7 +81,7 @@ CREATE OR REPLACE FUNCTION <%identify_participant_duplicate%>() RETURNS TRIGGER 
    END;
 $$ LANGUAGE PLPGSQL;
 
-CREATE TRIGGER <%metabase_sch_sth_tas_duplicates_202005_trigger%> AFTER INSERT OR UPDATE OR DELETE ON <%ab_cde_fgh_2_participant%>
+CREATE TRIGGER <%metabase_sch_sth_ias_duplicates_202005_trigger%> AFTER INSERT OR UPDATE OR DELETE ON <%ab_cde_fgh_2_participant%>
 FOR EACH ROW EXECUTE PROCEDURE <%identify_participant_duplicate%>();
 
 
@@ -88,7 +89,7 @@ FOR EACH ROW EXECUTE PROCEDURE <%identify_participant_duplicate%>();
 /**
 * Query to identifie the existing records with duplicates issues
 */
- INSERT INTO <%metabase_sch_sth_tas_duplicates_202005%>(id_participant, barcode_participant, form)
+ INSERT INTO <%metabase_sch_sth_ias_duplicates_202005%>(id_participant, barcode_participant, form)
  SELECT id, p_barcode_id, 'Participant'
             FROM (
               SELECT src.id, src.p_barcode_id FROM <%v_ab_cde_fgh_2_participant%> src
@@ -122,7 +123,7 @@ CREATE OR REPLACE FUNCTION <%identify_kk_result_duplicate%>() RETURNS TRIGGER AS
             AND (SELECT count (*)  FROM <%v_ab_cde_fgh_3_kk%> inr WHERE src.k_barcode_id = inr.k_barcode_id ) > 1
             ) THEN
 
-        INSERT INTO <%metabase_sch_sth_tas_duplicates_202005%>(id_results_kk, barcode_results, form)
+        INSERT INTO <%metabase_sch_sth_ias_duplicates_202005%>(id_results_kk, barcode_results, form)
           SELECT id, k_barcode_id, 'Kato Katz Results'
             FROM (SELECT src.id, k_barcode_id FROM <%v_ab_cde_fgh_3_kk%> src
               WHERE k_barcode_id = NEW.k_barcode_id) p
@@ -139,7 +140,7 @@ FOR EACH ROW EXECUTE PROCEDURE <%identify_kk_result_duplicate%>();
 /**
 * Query to identifie the existing records with duplicates issues
 */
- INSERT INTO <%metabase_sch_sth_tas_duplicates_202005%>(id_results_kk, barcode_results, form)
+ INSERT INTO <%metabase_sch_sth_ias_duplicates_202005%>(id_results_kk, barcode_results, form)
  SELECT id, k_barcode_id, 'Kato Katz Results'
             FROM (
               SELECT src.id, src.k_barcode_id FROM <%v_ab_cde_fgh_3_kk%> src
@@ -173,7 +174,7 @@ CREATE OR REPLACE FUNCTION <%identify_urine_result_duplicate%>() RETURNS TRIGGER
             AND (SELECT count (*)  FROM <%v_ab_cde_fgh_4_urine%> inr WHERE src.u_barcode_id = inr.u_barcode_id ) > 1
             ) THEN
 
-        INSERT INTO <%metabase_sch_sth_tas_duplicates_202005%>(id_results_urine, barcode_results, form)
+        INSERT INTO <%metabase_sch_sth_ias_duplicates_202005%>(id_results_urine, barcode_results, form)
           SELECT id, u_barcode_id, 'Urine Results'
             FROM (SELECT src.id, u_barcode_id FROM <%v_ab_cde_fgh_4_urine%> src
               WHERE u_barcode_id = NEW.u_barcode_id) p
@@ -190,7 +191,7 @@ FOR EACH ROW EXECUTE PROCEDURE <%identify_urine_result_duplicate%>();
 /**
 * Query to identifie the existing records with duplicates issues
 */
- INSERT INTO <%metabase_sch_sth_tas_duplicates_202005%>(id_results_urine, barcode_results, form)
+ INSERT INTO <%metabase_sch_sth_ias_duplicates_202005%>(id_results_urine, barcode_results, form)
  SELECT id, u_barcode_id, 'Urine Results'
             FROM (
               SELECT src.id, src.u_barcode_id FROM <%v_ab_cde_fgh_4_urine%> src
