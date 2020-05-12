@@ -1,12 +1,13 @@
 /*
  * File: 10_village_distances_issues.sql
- * File Created: Tuesday, 5th May 2020 8:08:06 pm
+ * File Created: Wednesday, 6th May 2020 2:01:44 pm
  * Author: Dyesse YUMBA
- * Last Modified: Tuesday, 5th May 2020 8:21:52 pm
+ * Last Modified: Tuesday, 12th May 2020 1:57:33 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
+
 
 /*
  * This query will will display the list of nearby villages less than <%village_dist_required%> KM
@@ -35,6 +36,5 @@ FROM <%ab_cde_fgh_1_site%> src
 WHERE IS NOT NULL
 
   ------ Metabase filter -------
-  -- [[and {{district}}]]
-  ;
+  -- [[and {{district}}]];
 
