@@ -1,16 +1,16 @@
 /*
- * File: orphaned.sql
  * File Created: Saturday, 2nd May 2020 4:42:43 pm
  * Author: Dyesse YUMBA
- * Last Modified: Tuesday, 5th May 2020 5:20:45 pm
+ * Last Modified: Monday, 11th May 2020 1:10:41 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
 
+
 /*
- * Variable to rename <%metabase_oncho_oem_orphaned_202004%>, <%v_ab_cde_fgh_3_participant%>
+ * Variable to rename <%metabase_oncho_oem_orphaned_202004%>, <%v_ab_cde_fgh_2_participant%>
  */
 BEGIN;
 
@@ -53,7 +53,7 @@ INSERT INTO <%metabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, 
     FROM (
       SELECT
         p.id, p_recorder_id, p_barcode_id
-        FROM <%v_ab_cde_fgh_3_participant%> p
+        FROM <%v_ab_cde_fgh_2_participant%> p
          LEFT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
           WHERE d.id isnull
           ) p
@@ -76,7 +76,7 @@ BEGIN
       p.id,
       p.p_recorder_id,
       p.p_barcode_id
-    FROM <%v_ab_cde_fgh_3_participant%> p
+    FROM <%v_ab_cde_fgh_2_participant%> p
     LEFT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
     WHERE d.id ISNULL;
 
@@ -103,7 +103,7 @@ BEGIN
           FROM (
             SELECT
               p.id, p_recorder_id, p_barcode_id
-              FROM <%v_ab_cde_fgh_3_participant%> p
+              FROM <%v_ab_cde_fgh_2_participant%> p
                LEFT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
                 WHERE d.id isnull
                 ) p
@@ -129,7 +129,7 @@ INSERT INTO <%metabase_oncho_oem_orphaned_202004%>(id_participant, recorder_id, 
     FROM (
       SELECT
         d.id, d_recorder_id, d_barcode_id
-        FROM <%v_ab_cde_fgh_3_participant%> p
+        FROM <%v_ab_cde_fgh_2_participant%> p
          RIGHT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
           WHERE p.id isnull
           ) p
@@ -152,7 +152,7 @@ BEGIN
       d.id,
       d.d_recorder_id,
       d.d_barcode_id
-    FROM <%v_ab_cde_fgh_3_participant%> p
+    FROM <%v_ab_cde_fgh_2_participant%> p
     RIGHT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
     WHERE d.id ISNULL;
 
@@ -179,7 +179,7 @@ BEGIN
           FROM (
             SELECT
               d.id, d_recorder_id, d_barcode_id
-              FROM <%v_ab_cde_fgh_3_participant%> p
+              FROM <%v_ab_cde_fgh_2_participant%> p
                RIGHT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
                 WHERE d.id isnull
                 ) p

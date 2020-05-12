@@ -1,12 +1,13 @@
 /*
  * File: 22_complete_dataset.sql
- * File Created: Saturday, 2nd May 2020 4:38:47 pm
+ * File Created: Saturday, 2nd May 2020 4:42:43 pm
  * Author: Dyesse YUMBA
- * Last Modified: Saturday, 2nd May 2020 4:40:50 pm
+ * Last Modified: Monday, 11th May 2020 1:10:17 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
+
 
 /*
  * This request will provid merged result from cluster, participant and OV16 form
@@ -39,6 +40,6 @@ select
   d_notes,
   p_date
 
-from <%v_ab_cde_fgh_3_participant%> p
+from <%v_ab_cde_fgh_2_participant%> p
 left join <%v_ab_cde_fgh_1_cluster%> c on c.c_cluster_id1::text = p.p_cluster_id
 left join <%v_ab_cde_fgh_3_rdt_ov16%> d on d.d_barcode_id = p.p_barcode_id

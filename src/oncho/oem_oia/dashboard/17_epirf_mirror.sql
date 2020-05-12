@@ -1,17 +1,17 @@
-
 /*
  * File: 17_epirf_mirror.sql
  * File Created: Saturday, 2nd May 2020 4:22:43 pm
  * Author: Dyesse YUMBA
- * Last Modified: Saturday, 2nd May 2020 4:27:21 pm
+ * Last Modified: Monday, 11th May 2020 1:09:58 pm
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
+
 /*
  * This query is a sample of EPIRF mirror
- * Variable to rename <%v_ab_cde_fgh_3_participant%>
+ * Variable to rename <%v_ab_cde_fgh_2_participant%>
  */
 SELECT
   'Mapping' "Survey Type",
@@ -32,7 +32,7 @@ SELECT
   COUNT(case when d_lab_ov16 = 'Positive' then 1 else NULL end) "Number of Positive",
   ROUND(COUNT(case when d_lab_ov16 = 'Positive' then 1 else NULL end) * 100.0 / count(*), 2) "% positive"
 
-FROM <%v_ab_cde_fgh_3_participant%> p
+FROM <%v_ab_cde_fgh_2_participant%> p
 LEFt JOIN <%v_ab_cde_fgh_1_cluster%> c on c.c_cluster_id1 = p.p_cluster_id::int
 LEFt JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on d.d_barcode_id = p.p_barcode_id
 

@@ -1,17 +1,16 @@
 /*
  * File: 1_participant_per_village.sql
- * File Created: Monday, 4th May 2020 2:18:07 pm
+ * File Created: Thursday, 7th May 2020 11:30:31 am
  * Author: Dyesse YUMBA
- * Last Modified: Monday, 11th May 2020 1:10:55 pm
+ * Last Modified: Thursday, 7th May 2020 11:33:12 am
  * Modified By: Dyesse YUMBA
  * -----
  * (c) 2020, WHO/AFRO/UCN/ESPEN
  */
 
-
 /*
  * This query will return a table that will contain the number of participants per village surveyed the day before.
- * Variable to rename <%ab_cde_fgh_3_rdt_ov16%>, <%v_ab_cde_fgh_2_participant%>
+ * Variable to rename <%v_ab_cde_fgh_1_site%>, <%v_ab_cde_fgh_2_participant%>
  */
  SELECT
   p_recorder_id "Recorder ID",
@@ -20,7 +19,7 @@
   c_cluster_name "Cluster Name",
   COUNT(p.id) "# Participant"
 
-FROM <%v_ab_cde_fgh_1_cluster%> p
+FROM <%v_ab_cde_fgh_1_site%> p
 LEFT JOIN <%v_ab_cde_fgh_2_participant%> c ON c.c_cluster_id = p.p_cluster_id::INT
 
 where p.p_date > CURRENT_DATE - 1

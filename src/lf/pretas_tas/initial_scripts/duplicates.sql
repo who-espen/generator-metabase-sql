@@ -9,8 +9,8 @@
  */
 
 /*
- * Variable to rename <%metabase_lf_tas_duplicates_202005%>, <%identify_participant_duplicate%>, <%ab_cde_fgh_2_participant%>,
- * <%ab_cde_fgh_3_fts%>, <%metabase_lf_tas_result_duplicates_202004_trigger%>, <%metabase_lf_tas_duplicates_202005_trigger%>
+ * Variable to rename <%metabase_lf_tas_duplicates_202005%>, <%identify_participant_duplicate%>, <%v_ab_cde_fgh_2_participant%>,
+ * <%v_ab_cde_fgh_3_fts%>, <%metabase_lf_tas_result_duplicates_202004_trigger%>, <%metabase_lf_tas_duplicates_202005_trigger%>
  */
 
 BEGIN;
@@ -55,14 +55,14 @@ CREATE OR REPLACE FUNCTION <%identify_participant_duplicate%>() RETURNS TRIGGER 
    BEGIN
 
       IF EXISTS(
-        SELECT src.id, src.p_barcode_id FROM <%ab_cde_fgh_2_participant%> src
+        SELECT src.id, src.p_barcode_id FROM <%v_ab_cde_fgh_2_participant%> src
           WHERE src.p_barcode_id = NEW.p_barcode_id
-            AND (SELECT count (*)  FROM <%ab_cde_fgh_2_participant%> inr WHERE src.p_barcode_id = inr.p_barcode_id ) > 1
+            AND (SELECT count (*)  FROM <%v_ab_cde_fgh_2_participant%> inr WHERE src.p_barcode_id = inr.p_barcode_id ) > 1
             ) THEN
 
         INSERT INTO <%metabase_lf_tas_duplicates_202005%>(id_participant, barcode_participant, form)
           SELECT id, p_barcode_id, 'Participant'
-            FROM (SELECT src.id, src.p_barcode_id FROM <%ab_cde_fgh_2_participant%> src
+            FROM (SELECT src.id, src.p_barcode_id FROM <%v_ab_cde_fgh_2_participant%> src
               WHERE src.p_barcode_id = NEW.p_barcode_id) p
           ON CONFLICT ON CONSTRAINT unique_idx_duplicates_participant_id_barcode DO NOTHING;
 
@@ -82,8 +82,8 @@ FOR EACH ROW EXECUTE PROCEDURE <%identify_participant_duplicate%>();
  INSERT INTO <%metabase_lf_tas_duplicates_202005%>(id_participant, barcode_participant, form)
  SELECT id, p_barcode_id, 'Participant'
             FROM (
-              SELECT src.id, src.p_barcode_id FROM <%ab_cde_fgh_2_participant%> src
-                WHERE (SELECT count (*)  FROM <%ab_cde_fgh_2_participant%> inr WHERE src.p_barcode_id = inr.p_barcode_id ) > 1
+              SELECT src.id, src.p_barcode_id FROM <%v_ab_cde_fgh_2_participant%> src
+                WHERE (SELECT count (*)  FROM <%v_ab_cde_fgh_2_participant%> inr WHERE src.p_barcode_id = inr.p_barcode_id ) > 1
             ) p
 
 ON CONFLICT ON CONSTRAINT unique_idx_duplicates_participant_id_barcode DO NOTHING;
@@ -108,14 +108,14 @@ CREATE OR REPLACE FUNCTION <%identify_diag_result_duplicate%>() RETURNS TRIGGER 
    BEGIN
 
       IF EXISTS(
-        SELECT src.id, d_barcode_id FROM <%ab_cde_fgh_3_fts%> src
+        SELECT src.id, d_barcode_id FROM <%v_ab_cde_fgh_3_fts%> src
           WHERE d_barcode_id = NEW.d_barcode_id
-            AND (SELECT count (*)  FROM <%ab_cde_fgh_3_fts%> inr WHERE src.d_barcode_id = inr.d_barcode_id ) > 1
+            AND (SELECT count (*)  FROM <%v_ab_cde_fgh_3_fts%> inr WHERE src.d_barcode_id = inr.d_barcode_id ) > 1
             ) THEN
 
         INSERT INTO <%metabase_lf_tas_duplicates_202005%>(id_results, barcode_results, form)
           SELECT id, d_barcode_id, 'Diagnostic'
-            FROM (SELECT src.id, d_barcode_id FROM <%ab_cde_fgh_3_fts%> src
+            FROM (SELECT src.id, d_barcode_id FROM <%v_ab_cde_fgh_3_fts%> src
               WHERE d_barcode_id = NEW.d_barcode_id) p
           ON CONFLICT ON CONSTRAINT unique_idx_duplicates_results_id_barcode DO NOTHING;
 
@@ -124,7 +124,7 @@ CREATE OR REPLACE FUNCTION <%identify_diag_result_duplicate%>() RETURNS TRIGGER 
    END;
 $$ LANGUAGE PLPGSQL;
 
-CREATE TRIGGER <%metabase_lf_tas_result_duplicates_202004_trigger%> AFTER INSERT OR UPDATE OR DELETE ON local_bf_tas_lf_resultat_fts_v3
+CREATE TRIGGER <%metabase_lf_tas_result_duplicates_202004_trigger%> AFTER INSERT OR UPDATE OR DELETE ON <%v_ab_cde_fgh_3_fts%>
 FOR EACH ROW EXECUTE PROCEDURE <%identify_diag_result_duplicate%>();
 
 
@@ -135,8 +135,8 @@ FOR EACH ROW EXECUTE PROCEDURE <%identify_diag_result_duplicate%>();
  INSERT INTO <%metabase_lf_tas_duplicates_202005%>(id_results, barcode_results, form)
  SELECT id, d_barcode_id, 'Diagnostic'
             FROM (
-              SELECT src.id, src.d_barcode_id FROM <%ab_cde_fgh_3_fts%> src
-                WHERE (SELECT count (*)  FROM <%ab_cde_fgh_3_fts%> inr WHERE src.d_barcode_id = inr.d_barcode_id ) > 1
+              SELECT src.id, src.d_barcode_id FROM <%v_ab_cde_fgh_3_fts%> src
+                WHERE (SELECT count (*)  FROM <%v_ab_cde_fgh_3_fts%> inr WHERE src.d_barcode_id = inr.d_barcode_id ) > 1
             ) p
 
 ON CONFLICT ON CONSTRAINT unique_idx_duplicates_results_id_barcode DO NOTHING;
