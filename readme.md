@@ -6,7 +6,7 @@ Here is how we will name the ESPEN Collect Electronic Form for DSA
 `<Country IS0 Code 2>_<Disease abbreviation>_<Survey Abbreviation>_<Form Index>_<Form Designation>_<year and month>`. Exemple: `bf_lf_tas2_1_sites_202004`, `bf_lf_tas2_2_participant_202004`
 
 ### Definition
-- **Country IS0 Code 2**: International country ISO code with two caractère ([https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2))
+- **Country IS0 Code 2**: International country ISO code with two character ([https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2))
 - **Disease abbreviation**:
   - *oncho* : Onchocerciasis
   - *lf* : Lymphatic Filariasis
@@ -33,7 +33,7 @@ Here is how we will name the ESPEN Collect Electronic Form for DSA
     - *sss*: Sentinel Site Survey
     - *ssia*:  SCH/STH Impact Assessment
 
-- **Form Index**: The number of form. Generally the village/school comme first followed by the participant form and the diagnostic form
+- **Form Index**: The number of form. Generally, the village/school come first followed by the participant form and the diagnostic form
 
 - **Form Designation**: The form designation. ex: cluster, site, participant
 
