@@ -37,3 +37,27 @@ Here is how we will name the ESPEN Collect Electronic Form for DSA
 
 - **Form Designation**: The form designation. ex: cluster, site, participant
 
+└───src
+    ├───lf
+    │   └───pretas_tas
+    │       ├───dashboard
+    │       ├───database_view
+    │       ├───initial_scripts
+    │       └───pulses
+    ├───oncho
+    │   ├───breeding_sites_assessment
+    │   │   ├───dashboard
+    │   │   ├───database_view
+    │   │   └───pulses
+    │   └───oem_oia
+    │       ├───dashboard
+    │       ├───database_view
+    │       ├───initial_scripts
+    │       └───pulses
+    └───sch_sth
+        └───impact_assessment
+            ├───dashboard
+            ├───database_view
+            ├───initial_scripts
+            └───pulses
+
