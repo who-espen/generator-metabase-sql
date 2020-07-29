@@ -25,12 +25,33 @@ SELECT
   NULL "Date Of the 1st PC Round", -- Ask the programm manageger this information
   NULL "Treatment Strategy",-- Ask the programm manageger this information
   NULL "Pre-control Prevalence", -- Ask the programm manageger this information
-  'RDT' "Diagnostic for Serology",
-  'Convinent' "Sampling Method", -- cluster for 2nd line village
-  CONCAT(min(p_age_yrs), ' - ', max(p_age_yrs)) "Age group(Min - Max)",
-  COUNT(p.id) "Examined",
-  COUNT(case when d_lab_ov16 = 'Positive' then 1 else NULL end) "Number of Positive",
-  ROUND(COUNT(case when d_lab_ov16 = 'Positive' then 1 else NULL end) * 100.0 / count(*), 2) "% positive"
+  NULL "Number of rounds of PC", -- Ask the programm manageger this information
+
+  -- MF skin snip --
+  NULL "MF skin snip Method of diagnostic",
+  NULL "MF skin snip examined",
+  NULL "MF skin snip Age group",
+  NULL "MF skin snip Positives",
+  NULL "MF skin snip % Positives",
+  NULL "MF skin snip CMFL",
+
+  -- Serology --
+  'RDT' "Serology Diagnostic",
+  'Convinent' "Serology Sampling Method", -- cluster for 2nd line village
+  CONCAT(min(p_age_yrs), ' - ', max(p_age_yrs)) "Serology Age group(Min - Max)",
+  COUNT(p.id) "Serology Examined",
+  COUNT(case when d_lab_ov16 = 'Positive' then 1 else NULL end) "Serology Number of Positive",
+  ROUND(COUNT(case when d_lab_ov16 = 'Positive' then 1 else NULL end) * 100.0 / count(*), 2) "Serology % positive",
+
+    -- PCR in black flies --
+  NULL "PCR Number of black flies examined",
+  NULL "PCR Species of the vector",
+  NULL "PCR % poolscreen positive",
+
+      -- Crab infestation --
+  NULL "Crab infestation examined",
+  NULL "Crab infestation Species of the vector",
+  NULL "Crab infestation % mf positive"
 
 FROM <%v_ab_cde_fgh_2_participant%> p
 LEFt JOIN <%v_ab_cde_fgh_1_cluster%> c on c.c_cluster_id1 = p.p_cluster_id::int
