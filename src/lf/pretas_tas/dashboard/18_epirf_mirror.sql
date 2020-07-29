@@ -32,10 +32,23 @@
   100 "Target Sample Size",-- TODO: Update the sample size
   count(p.id) "Examinded",
   COUNT(CASE WHEN d_final_result = 'Positive' THEN 1 ELSE NULL END) "Number of Positive",
-  ROUND(COUNT(CASE WHEN d_final_result = 'Positive' THEN 1 ELSE NULL END) * 100.0 / count(p.id), 2) "% positive"
+  ROUND(COUNT(CASE WHEN d_final_result = 'Positive' THEN 1 ELSE NULL END) * 100.0 / count(p.id), 2) "% positive",
+  null "Decision", --TODO: Update the decision
+  null "Number of invalid tests", --TODO: Update the number of invalid test
+  null "Lymphoedema Total Patient Number", --TODO: Update the Total Patient Number
+  null "Lymphoedema Method Estimation", --TODO: Update the  Method Estimation
+  null "Lymphoedema Date Estimation", --TODO: Update the Date Estimation
+  null "Lymphoedema Nbr Health Facilities", --TODO: Update the Nbr Health Facilities
+  null "Hydrocoele Total Patient Number", --TODO: Update the Total Patient Number
+  null "Hydrocoele Method Estimation", --TODO: Update the  Method Estimation
+  null "Hydrocoele Date Estimation", --TODO: Update the Date Estimation
+  null "Hydrocoele Nbr Health Facilities", --TODO: Update the Nbr Health Facilities
+  null "Comments" --TODO: Update the comments
 
 FROM <%v_ab_cde_fgh_3_fts%> d
 LEFT JOIN <%ab_cde_fgh_1_site%> c on d.d_cluster_id::int = c.c_cluster_id1
 RIGHT JOIN <%v_ab_cde_fgh_2_participant%> p on p.p_barcode_id = d.d_barcode_id
 
 GROUP BY c_eu_code, c_district, c_cluster_name, "Month", "Year", c_gps_lat, c_gps_lng, c_site_type
+
+
