@@ -128,7 +128,7 @@ BEGIN;
 /**
  * Insert the new diagnostic results without participant to the orphaned table
  */
-INSERT INTO <%metabase_lf_tas_orphaned_202005%>(id_participant, recorder_id, barcode_results, orphaned_type)
+INSERT INTO <%metabase_lf_tas_orphaned_202005%>(id_results, recorder_id, barcode_results, orphaned_type)
   SELECT id, d_recorder_id, d_barcode_id, 'OV16 results without participant'
     FROM (
       SELECT
@@ -158,7 +158,7 @@ BEGIN
       d.d_barcode_id
     FROM <%v_ab_cde_fgh_2_participant%> p
     RIGHT JOIN <%v_ab_cde_fgh_3_rdt_ov16%> d on p.p_barcode_id = d.d_barcode_id
-    WHERE d.id ISNULL;
+    WHERE p.id ISNULL;
 
 -- Check if there is solved orphaned participant then update
       IF EXISTS(
@@ -178,7 +178,7 @@ BEGIN
       END IF;
 
 -- Insert the new participant without diagnostic results to the orphaned table
-      INSERT INTO public.<%metabase_lf_tas_orphaned_202005%>(id_participant, recorder_id, barcode_participant, orphaned_type)
+      INSERT INTO public.<%metabase_lf_tas_orphaned_202005%>(id_results, recorder_id, barcode_participant, orphaned_type)
         SELECT id, d_recorder_id, d_barcode_id, 'OV16 results without participant'
           FROM (
             SELECT

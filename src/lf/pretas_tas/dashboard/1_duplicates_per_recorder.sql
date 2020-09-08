@@ -16,7 +16,7 @@
  SELECT
 
   "Recorders",
-  sum("# Duplicates")
+  sum("# Duplicates") as "# Duplicates"
 
 FROM (
   SELECT
@@ -40,12 +40,12 @@ FROM (
     count(m.id) "# Duplicates",
    	p_district district,
    	p_cluster_id cluster_id,
-   	p_cluster_name cluster_name, p_district, p_cluster_id, p_cluster_name
+   	p_cluster_name cluster_name
 
     FROM public.<%metabase_lf_tas_duplicates_202005%> m
     JOIN <%ab_cde_fgh_2_participant%> p ON p.id = m.id_participant
 
-  group by p.p_recorder_id
+  group by p.p_recorder_id, p_district, p_cluster_id, p_cluster_name
 
 ) src
 
